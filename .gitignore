@@ -1,2 +1,6 @@
 var
 bin
+
+.idea/*
+
+go-mysql-elasticsearch
