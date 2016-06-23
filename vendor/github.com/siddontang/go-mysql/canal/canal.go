@@ -140,15 +140,16 @@ func (c *Canal) run() error {
 	}
 
 	close(c.dumpDoneCh)
-	c, err := NewCanal(c.cfg)
-	if err != nil {
-		log.Errorf("new canal err: %v", err)
-	}
-	if err := c.startSyncBinlog(); err != nil {
-		if !c.isClosed() {
+
+	for {
+		c, err := NewCanal(c.cfg)
+		if err != nil {
+			log.Errorf("new canal err: %v", err)
+		}
+
+		if err := c.startSyncBinlog(); err != nil {
 			log.Errorf("canal start sync binlog err: %v", err)
 		}
-		return errors.Trace(err)
 	}
 
 	return nil
