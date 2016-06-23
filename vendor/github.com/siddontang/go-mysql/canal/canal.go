@@ -142,6 +142,7 @@ func (c *Canal) run() error {
 	//close(c.dumpDoneCh)
 
 	for {
+		log.Infof("new another canal ...")
 		c, err := NewCanal(c.cfg)
 		if err != nil {
 			log.Errorf("new canal err: %v", err)
