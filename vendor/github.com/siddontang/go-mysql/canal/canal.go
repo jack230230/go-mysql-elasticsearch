@@ -134,12 +134,12 @@ func (c *Canal) Start() error {
 func (c *Canal) run() error {
 	defer c.wg.Done()
 
-	//if err := c.tryDump(); err != nil {
-	//	log.Errorf("canal dump mysql err: %v", err)
-	//	return errors.Trace(err)
-	//}
-	//
-	//close(c.dumpDoneCh)
+	if err := c.tryDump(); err != nil {
+		log.Errorf("canal dump mysql err: %v", err)
+		return errors.Trace(err)
+	}
+
+	close(c.dumpDoneCh)
 
 	for {
 		log.Infof("new another canal ...")
