@@ -141,17 +141,11 @@ func (c *Canal) run() error {
 
 	close(c.dumpDoneCh)
 
-	for {
-		log.Infof("new another canal ...")
-		c, err := NewCanal(c.cfg)
-		if err != nil {
-			log.Errorf("new canal err: %v", err)
-		}
-
-		if err := c.startSyncBinlog(); err != nil {
-			log.Errorf("canal start sync binlog err: %v", err)
-		}
+	if err := c.startSyncBinlog(); err != nil {
+		log.Errorf("canal start sync binlog err: %v", err)
 	}
+
+	panic("Mysql Connection is bad.... exit")
 
 	return nil
 }
